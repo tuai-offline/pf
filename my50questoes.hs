@@ -54,3 +54,4 @@ myReplicate n x = if n < 0 then []
 
 -- Questão 10 
 myIntersperse :: a -> [a] -> [a]
+myIntersperse
