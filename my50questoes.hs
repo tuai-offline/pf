@@ -52,6 +52,11 @@ myReplicate 0 _ = []
 myReplicate n x = if n < 0 then []
                   else x : myReplicate (n-1) x
 
--- Questão 10 
+-- TODO Questão 10 - Fiz de forma diferente e meio cansada. Perguntar se está mal
 myIntersperse :: a -> [a] -> [a]
-myIntersperse hdsajfdhsajdsajn
+myIntersperse x (h:t) = if length (h:t) <= 1 then h : []
+                        else h : x : myIntersperse x t
+
+-- Questão 11
+myGroup :: Eq a => [a] -> [[a]]
+myGroup [] = []
