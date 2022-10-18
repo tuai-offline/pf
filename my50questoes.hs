@@ -33,7 +33,7 @@ myTake _ [] = []
 myTake x (h:t) = if x>0 then h : myTake (x-1) t
                  else []
 
--- TODO Questão 7 - Github do Quintela tem erro, corrigir segunda-feira
+-- Questão 7
 myDrop :: Int -> [a] -> [a]
 myDrop 0 l = l
 myDrop _ [] = []
@@ -57,6 +57,33 @@ myIntersperse :: a -> [a] -> [a]
 myIntersperse x (h:t) = if length (h:t) <= 1 then h : []
                         else h : x : myIntersperse x t
 
--- Questão 11
-myGroup :: Eq a => [a] -> [[a]]
-myGroup [] = []
+-- !Questão 11
+-- myGroup :: Eq a => [a] -> [[a]]
+
+-- Questão 12
+myConcat :: [[a]] -> [a]
+myConcat [] = []
+myConcat (h:t) = h ++ myConcat t
+
+-- !Questão 13
+myInits :: [a] -> [[a]]
+myInits [] = [[]]
+myInits l = myInits(myInit l) ++ [l]
+
+myInit :: [a] -> [a]
+myInit [x] = []
+myInit (h:t) = h : myInit t
+
+-- Questão 14
+myTails :: [a] -> [[a]]
+myTails [] = []
+myTails (h:t) = [(h:t)] ++ myTails t
+
+-- Questão 15
+myHeads :: [[a]] -> [a]
+myHeads [] = []
+myHeads ([]:t) = myHeads t
+myHeads ((x:xs):t) = x : myHeads t
+
+-- Questão 16
+myTotal :: [[a]] 
