@@ -85,5 +85,57 @@ myHeads [] = []
 myHeads ([]:t) = myHeads t
 myHeads ((x:xs):t) = x : myHeads t
 
--- Questão 16
-myTotal :: [[a]] 
+-- ! Questão 16
+myTotal :: [[a]] -> Int
+myTotal [[]] = 0
+myTotal ([]:t) = myTotal t
+myTotal ((x:xs):t) = 1 + myTotal (xs:t)
+
+-- Questão 17
+fun :: [(a,b,c)] -> [(a,c)]
+fun [] = []
+fun ((a,b,c):t) = (a,c) : fun t
+
+-- Questão 18
+cola :: [(String,b,c)] -> String
+cola [] = []
+cola ((a,b,c):t) = a ++ cola t
+
+-- Questão 19
+idade :: Int -> Int -> [(String,Int)] -> [String]
+idade _ _ [] = []
+idade x y ((a,b):t) = if x - b >= y then a : idade x y t
+                      else idade x y t
+
+-- Questão 20
+powerEnumFrom :: Int -> Int -> [Int]
+powerEnumFrom n 0 = []
+powerEnumFrom n m = powerEnumFrom n (m-1) ++ [n^(m-1)]
+
+-- TODO Questão 21 - Pedir ajuda 
+{-isPrime :: Int -> Bool
+isPrime 1 = False
+isPrime
+
+aux ::
+-} 
+
+-- Questão 22
+isPrefixOf :: Eq a => [a] -> [a] -> Bool
+isPrefixOf [] l = True
+isPrefixOf (x:xs) (h:t) = if x == h then isPrefixOf xs t 
+                          else False 
+
+-- TODO Questão 23 - Quintela também está errado. Devia dar errado quando faço isSuffixOf [1,3] [1,2,3] 
+isSuffixOf :: Eq a => [a] -> [a] -> Bool
+isSuffixOf [] [] = True
+isSuffixOf l [] = False
+isSuffixOf (x:xs) (h:t) = if x == h then isSuffixOf  xs t
+                          else isSuffixOf (x:xs) t
+
+-- Questão 24
+isSubsequenceOf :: Eq a => [a] -> [a] -> Bool
+isSubsequenceOf  [] [] = True
+isSubsequenceOf l [] = False
+isSubsequenceOf (x:xs) (h:t) = if x == h then isSubsequenceOf  xs t
+                               else isSubsequenceOf (x:xs) t
