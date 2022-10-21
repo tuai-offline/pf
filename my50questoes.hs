@@ -139,3 +139,29 @@ isSubsequenceOf  [] [] = True
 isSubsequenceOf l [] = False
 isSubsequenceOf (x:xs) (h:t) = if x == h then isSubsequenceOf  xs t
                                else isSubsequenceOf (x:xs) t
+
+-- Questão 25 
+elemIndices :: Eq a => a -> [a] -> [Int]
+elemIndices x l = eI x l 0
+
+eI :: Eq a => a -> [a] -> Int -> [Int]
+eI _ [] _ = []
+eI x (h:t) p = if x == h then p : eI x t (p+1)
+               else eI x t (p+1)
+
+-- TODO Questão 26 - Números repetidos aparecem no final e não no início
+nub :: Eq a => [a] -> [a]
+nub [] = []
+nub (h:t) = if pertence h t then nub t
+            else h : nub t
+
+pertence :: Eq a => a -> [a] -> Bool
+pertence x [] = False
+pertence x (h:t) = if x == h then True
+                   else pertence x t
+
+-- Questão 27
+delete :: Eq a => a -> [a] -> [a]
+delete _ [] = []
+delete x (h:t) = if x == h then t
+                 else h : delete x t
