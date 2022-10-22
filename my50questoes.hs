@@ -165,3 +165,16 @@ delete :: Eq a => a -> [a] -> [a]
 delete _ [] = []
 delete x (h:t) = if x == h then t
                  else h : delete x t
+
+-- ! Questão 28
+barra :: Eq a => [a] -> [a] -> [a]
+barra [] _ = []
+barra l [] = l
+barra (x:xs) (h:t) = barra (delete x (h:t)) xs
+
+-- Questão 29
+union :: Eq a => [a] -> [a] -> [a]
+union (x:xs) (h:t) = if x == h then delete
+                     else 
+
+-- auxDel :: Eq a => a -> [a] -> [a]
