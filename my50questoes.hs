@@ -59,7 +59,12 @@ myIntersperse x (h:t) = if length (h:t) <= 1 then h : []
 
 -- !Questão 11
 -- myGroup :: Eq a => [a] -> [[a]]
-
+myGroup :: Eq a => [a] -> [[a]]
+myGroup [] = [[]]
+myGroup [h] = [[h]]
+myGroup (h:t) = let (x:xs):y = myGroup t
+                in if h==x then (h:x:xs):y
+                else [h]:(x:xs):y
 -- Questão 12
 myConcat :: [[a]] -> [a]
 myConcat [] = []
