@@ -228,3 +228,15 @@ auxPMaior :: Ord a => Int -> a -> [a] -> Int
 auxPMaior acc _ [] = acc
 auxPMaior acc x (h:t) = if x >= h then auxPMaior (acc+1) x t
                          else auxPMaior(acc+1) x t
+
+-- TODO Questão 35 - Não me lembro do que é Maybe, Just, etc.
+-- myLookup :: Eq a => a -> [(a,b)] -> Maybe b
+
+-- Questão 36
+preCrescente :: Ord a => [a] -> [a]
+preCrescente [] = []
+preCrescente [x] = [x]
+preCrescente (x:xs:t) = if x > xs then [x]
+                     else x : preCrescente (xs:t)
+
+-- Questão 37
