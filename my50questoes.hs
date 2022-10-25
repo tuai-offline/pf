@@ -57,20 +57,20 @@ myIntersperse :: a -> [a] -> [a]
 myIntersperse x (h:t) = if length (h:t) <= 1 then h : []
                         else h : x : myIntersperse x t
 
--- !Questão 11
--- myGroup :: Eq a => [a] -> [[a]]
+-- ! Questão 11
 myGroup :: Eq a => [a] -> [[a]]
 myGroup [] = [[]]
 myGroup [h] = [[h]]
 myGroup (h:t) = let (x:xs):y = myGroup t
                 in if h==x then (h:x:xs):y
                 else [h]:(x:xs):y
+
 -- Questão 12
 myConcat :: [[a]] -> [a]
 myConcat [] = []
 myConcat (h:t) = h ++ myConcat t
 
--- !Questão 13
+-- ! Questão 13
 myInits :: [a] -> [[a]]
 myInits [] = [[]]
 myInits l = myInits(myInit l) ++ [l]
@@ -131,10 +131,10 @@ isPrefixOf [] l = True
 isPrefixOf (x:xs) (h:t) = if x == h then isPrefixOf xs t 
                           else False 
 
--- TODO Questão 23 - Quintela também está errado. Devia dar errado quando faço isSuffixOf [1,3] [1,2,3] 
+-- Questão 23 
 isSuffixOf :: Eq a => [a] -> [a] -> Bool
-isSuffixOf [] [] = True
 isSuffixOf l [] = False
+isSuffixOf [] l = True
 isSuffixOf (x:xs) (h:t) = if x == h then isSuffixOf  xs t
                           else isSuffixOf (x:xs) t
 
@@ -154,7 +154,7 @@ eI _ [] _ = []
 eI x (h:t) p = if x == h then p : eI x t (p+1)
                else eI x t (p+1)
 
--- TODO Questão 26 - Números repetidos aparecem no final e não no início
+-- Questão 26
 nub :: Eq a => [a] -> [a]
 nub [] = []
 nub (h:t) = if pertence h t then nub t
@@ -177,9 +177,54 @@ barra [] _ = []
 barra l [] = l
 barra (x:xs) (h:t) = barra (delete x (h:t)) xs
 
--- Questão 29
+-- ! Questão 29
 union :: Eq a => [a] -> [a] -> [a]
-union (x:xs) (h:t) = if x == h then delete
-                     else 
+union [] l = l
+union l [] = l
+union (x:xs) (h:t) = if auxUnion x (h:t) then union (x:xs) t
+                     else x : union xs (h:t)
 
--- auxDel :: Eq a => a -> [a] -> [a]
+auxUnion :: Eq a => a -> [a] -> Bool
+auxUnion x [] = False
+auxUnion x  (h:t) = if x == h then True
+                    else auxUnion x t
+
+-- Questão 30
+myIntersect :: Eq a => [a] -> [a] -> [a]
+myIntersect [] l = []
+myIntersect l [] = []
+myIntersect (x:xs) (h:t) = if auxIntersect x (h:t) then x : myIntersect xs (h:t)
+                           else myIntersect xs (h:t)
+
+auxIntersect :: Eq a => a -> [a] -> Bool
+auxIntersect x [] = False
+auxIntersect x (h:t) = if x == h then True
+                       else auxIntersect x t
+
+-- Questão 31
+myInsert :: Ord a => a -> [a] -> [a]
+myInsert x [] = [x]
+myInsert x (h:t) = if x > h then h : myInsert x t
+                   else x : (h:t)
+
+-- Questão 32
+myUnwords :: [String] -> String
+myUnwords [] = []
+myUnwords [x] = x
+myUnwords (h:t) = h ++ " " ++ myUnwords t
+
+-- Questão 33
+myUnlines :: [String] -> String
+myUnlines [] = []
+myUnlines [x] = x
+myUnlines (h:t) = h ++ "\n" ++ myUnlines t
+
+-- Questão 34
+myPMaior :: Ord a => [a] -> Int
+myPMaior [x] = 0
+myPMaior (h:t) = auxPMaior 0 h t
+
+auxPMaior :: Ord a => Int -> a -> [a] -> Int
+auxPMaior acc _ [] = acc
+auxPMaior acc x (h:t) = if x >= h then auxPMaior (acc+1) x t
+                         else auxPMaior(acc+1) x t
