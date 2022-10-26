@@ -26,7 +26,7 @@ reverso :: [a] -> [a]
 reverso [] = []
 reverso (h:t) = reverso t ++ [h]
 
--- !Questão 6
+-- Questão 6
 myTake :: Int -> [a] -> [a]
 myTake 0 _ = []
 myTake _ [] = []
@@ -219,7 +219,7 @@ myUnlines [] = []
 myUnlines [x] = x
 myUnlines (h:t) = h ++ "\n" ++ myUnlines t
 
--- Questão 34
+-- TODO Questão 34 - Errado
 myPMaior :: Ord a => [a] -> Int
 myPMaior [x] = 0
 myPMaior (h:t) = auxPMaior 0 h t
@@ -243,7 +243,7 @@ preCrescente [x] = [x]
 preCrescente (x:xs:t) = if x > xs then [x]
                      else x : preCrescente (xs:t)
 
--- Questão 37
+-- ! Questão 37
 iSort :: Ord a => [a] -> [a]
 iSort [] = []
 iSort (h:t) = insert h (iSort t)
@@ -251,3 +251,45 @@ iSort (h:t) = insert h (iSort t)
 insert h [] = [h]
 insert x (h:t) = if x <= h then x:h:t
                  else h : (insert x t)
+
+-- Questão 38
+menor :: String -> String -> Bool
+menor [] [] = True
+menor l [] = False
+menor [] l = True
+menor (x:xs) (h:t) | x > h = True
+                   | x < h = False
+                   | otherwise = menor xs t
+
+-- Questão 39
+elemMSet :: Eq a => a -> [(a,Int)] -> Bool
+elemMSet _ [] = False
+elemMSet y ((x,xs):t) = if y == x then True
+                        else elemMSet y t
+
+-- Questão 40
+converteMSet :: [(a,Int)] -> [a]
+converteMSet [] = []
+converteMSet ((x,xs):t) = if xs == 0 then converteMSet t
+                          else [x] ++ converteMSet ((x,(xs-1)):t)
+
+-- Questão 41
+insereMSet :: Eq a => a -> [(a,Int)] -> [(a,Int)]
+insereMSet x [] = []
+insereMSet x ((a,b):t) = if x == a then ((a,b+1):t)
+                         else (a,b) : insereMSet x t
+
+-- Questão 42
+removeMSet :: Eq a => a -> [(a,Int)] -> [(a,Int)]
+removeMSet x [] = []
+removeMSet x ((a,b):t) = if x == a then t
+                         else (a,b) : removeMSet x t
+
+-- TODO Questão 43 - Ver let()
+-- constroiMSet :: Ord a => [a] -> [(a,Int)]
+
+-- TODO Questão 44 - Ver left e right
+-- myPE :: [Either a b] -> ([a],[b])
+
+-- Questão 45
+
