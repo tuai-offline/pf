@@ -52,7 +52,7 @@ myReplicate 0 _ = []
 myReplicate n x = if n < 0 then []
                   else x : myReplicate (n-1) x
 
--- TODO Questão 10 - Fiz de forma diferente e meio cansada. Perguntar se está mal
+-- Questão 10
 myIntersperse :: a -> [a] -> [a]
 myIntersperse x (h:t) = if length (h:t) <= 1 then h : []
                         else h : x : myIntersperse x t
@@ -229,8 +229,12 @@ auxPMaior acc _ [] = acc
 auxPMaior acc x (h:t) = if x >= h then auxPMaior (acc+1) x t
                          else auxPMaior(acc+1) x t
 
--- TODO Questão 35 - Não me lembro do que é Maybe, Just, etc.
--- myLookup :: Eq a => a -> [(a,b)] -> Maybe b
+-- Questão 35
+myLookup :: Eq a => a -> [(a,b)] -> Maybe b
+myLookup _ [] = Nothing
+myLookup y ((x,xs):t) = if y == x then Just xs
+                        else myLookup y (t)
+
 
 -- Questão 36
 preCrescente :: Ord a => [a] -> [a]
@@ -240,3 +244,10 @@ preCrescente (x:xs:t) = if x > xs then [x]
                      else x : preCrescente (xs:t)
 
 -- Questão 37
+iSort :: Ord a => [a] -> [a]
+iSort [] = []
+iSort (h:t) = insert h (iSort t)
+
+insert h [] = [h]
+insert x (h:t) = if x <= h then x:h:t
+                 else h : (insert x t)
