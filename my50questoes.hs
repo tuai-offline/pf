@@ -70,7 +70,7 @@ myConcat :: [[a]] -> [a]
 myConcat [] = []
 myConcat (h:t) = h ++ myConcat t
 
--- ! Questão 13
+-- Questão 13
 myInits :: [a] -> [[a]]
 myInits [] = [[]]
 myInits l = myInits(myInit l) ++ [l]
@@ -90,7 +90,7 @@ myHeads [] = []
 myHeads ([]:t) = myHeads t
 myHeads ((x:xs):t) = x : myHeads t
 
--- ! Questão 16
+-- Questão 16
 myTotal :: [[a]] -> Int
 myTotal [[]] = 0
 myTotal ([]:t) = myTotal t
@@ -219,15 +219,22 @@ myUnlines [] = []
 myUnlines [x] = x
 myUnlines (h:t) = h ++ "\n" ++ myUnlines t
 
--- TODO Questão 34 - Errado
-myPMaior :: Ord a => [a] -> Int
-myPMaior [x] = 0
-myPMaior (h:t) = auxPMaior 0 h t
+-- ! Questão 34
+--myPMaior :: Ord a => [a] -> Int
+--myPMaior [x] = 0
+--myPMaior (h:t) = auxPMaior 0 h t
+--
+--auxPMaior :: Ord a => Int -> a -> [a] -> Int
+--auxPMaior acc _ [] = acc
+--auxPMaior acc x (h:t) = if x >= h then auxPMaior (acc+1) x t
+--                         else auxPMaior(acc+1) x t
 
-auxPMaior :: Ord a => Int -> a -> [a] -> Int
-auxPMaior acc _ [] = acc
-auxPMaior acc x (h:t) = if x >= h then auxPMaior (acc+1) x t
-                         else auxPMaior(acc+1) x t
+brunoPMaior :: Ord a => [a] -> Int
+brunoPMaior [x] = 0 
+brunoPMaior (h:t) = aux h 0 1 t where
+                    aux _ pos count [] = pos
+                    aux maior pos count(h:t) = if h > maior then aux h count (count+1) t
+                                               else aux maior pos (count+1) t  
 
 -- Questão 35
 myLookup :: Eq a => a -> [(a,b)] -> Maybe b
