@@ -294,9 +294,57 @@ removeMSet x ((a,b):t) = if x == a then t
 
 -- TODO Questão 43 - Ver let()
 -- constroiMSet :: Ord a => [a] -> [(a,Int)]
+-- constroiMSet 
 
--- TODO Questão 44 - Ver left e right
--- myPE :: [Either a b] -> ([a],[b])
+-- ! Questão 44
+myPE :: [Either a b] -> ([a],[b])
+myPE [] = ([],[])
+myPE (h:t) = case h of
+        Left a -> (a:x , y)
+        Right b -> (x ,b:y)
+    where (x,y) = myPE t
 
 -- Questão 45
+catMaybe :: [Maybe a] -> [a]
+catMaybe [] = []
+catMaybe (h:t) = case h of
+        Just a -> a : catMaybe t
+        Nothing -> catMaybe t 
+
+-- Questão 46
+data Movimento = Norte | Sul | Este | Oeste
+               deriving Show
+
+caminho :: (Int, Int) -> (Int,Int) -> [Movimento]
+caminho (x1,y1) (x2,y2) | x1 < x2 = Este : caminho (x1+1,y1) (x2,y2)
+                       | x1 > x2 = Oeste : caminho (x1-1,y1) (x2,y2)
+                       | y1 < y2 = Norte : caminho (x1,y1+1) (x2,y2)
+                       | y1 > y2 = Sul : caminho (x1,y1-1) (x2,y2)
+                       |otherwise = []
+
+-- Questão 47
+
+-- data Movimento = Norte | Sul | Este | Oeste
+--                deriving Show
+-- ? Já definido em cima, se não estivesse comentado daria erro por estar a repetir
+
+hasLoop :: (Int,Int) -> [Movimento] -> Bool
+hasLoop (xi,yi) [] = False
+hasLoop (xi,yi) (h:t) = case h of
+                        Este -> auxHasLoop (xi,yi) t (xi+1,yi)
+                        Oeste -> auxHasLoop (xi,yi) t (xi-1,yi)
+                        Norte -> auxHasLoop (xi,yi) t (xi,yi+1)
+                        Sul -> auxHasLoop (xi,yi) t (xi,yi-1)
+
+auxHasLoop :: (Int,Int) -> [Movimento] -> (Int,Int) -> Bool
+auxHasLoop (xi,yi) [] (x,y) = if xi == x && yi == y then True
+                              else False
+auxHasLoop (xi,yi) (h:t) (x,y) = if xi == x && yi == y then True
+                                 else case h of 
+                                    Este -> auxHasLoop (xi,yi) t (x+1,y)
+                                    Oeste -> auxHasLoop (xi,yi) t (x-1,y)
+                                    Norte -> auxHasLoop (xi,yi) t (x,y+1)
+                                    Sul -> auxHasLoop (xi,yi) t (x,y-1)
+
+-- Questão 48
 
