@@ -322,7 +322,7 @@ caminho (x1,y1) (x2,y2) | x1 < x2 = Este : caminho (x1+1,y1) (x2,y2)
                        | y1 > y2 = Sul : caminho (x1,y1-1) (x2,y2)
                        |otherwise = []
 
--- Questão 47
+-- ! Questão 47
 
 -- data Movimento = Norte | Sul | Este | Oeste
 --                deriving Show
@@ -347,4 +347,13 @@ auxHasLoop (xi,yi) (h:t) (x,y) = if xi == x && yi == y then True
                                     Sul -> auxHasLoop (xi,yi) t (x,y-1)
 
 -- Questão 48
+type Ponto = (Float,Float)
+data Retangulo = Rect Ponto Ponto
+
+contaQuadrados ::  [Retangulo] -> Int
+contaQuadrados [] = 0
+contaQuadrados ((Rect (x1,y1) (x2,y2)):t) = if abs(x1-x2) == abs(y1-y2) then 1 + contaQuadrados t
+                                            else contaQuadrados t
+
+-- Questão 49
 
