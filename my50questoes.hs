@@ -323,7 +323,6 @@ caminho (x1,y1) (x2,y2) | x1 < x2 = Este : caminho (x1+1,y1) (x2,y2)
                        |otherwise = []
 
 -- ! Questão 47
-
 -- data Movimento = Norte | Sul | Este | Oeste
 --                deriving Show
 -- ? Já definido em cima, se não estivesse comentado daria erro por estar a repetir
@@ -356,4 +355,20 @@ contaQuadrados ((Rect (x1,y1) (x2,y2)):t) = if abs(x1-x2) == abs(y1-y2) then 1 +
                                             else contaQuadrados t
 
 -- Questão 49
+-- type Ponto = (Float,Float)
+-- data Retangulo = Rect Ponto Ponto
 
+areaTotal :: [Retangulo] -> Float
+areaTotal [] = 0
+areaTotal ((Rect (x1,y1) (x2,y2)):t) = (abs(x2-x1) * abs(y2-y1)) + areaTotal t
+
+-- Questão 50
+data Equipamento = Bom | Razoavel | Avariado
+                 deriving Show
+
+naoReparar :: [Equipamento] -> Int
+naoReparar [] = 0
+naoReparar (h:t) = case h of 
+    Bom -> 1 + naoReparar t
+    Razoavel -> 1 + naoReparar t
+    Avariado -> naoReparar t
