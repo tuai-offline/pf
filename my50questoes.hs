@@ -177,7 +177,7 @@ barra [] _ = []
 barra l [] = l
 barra (x:xs) (h:t) = barra (delete x (h:t)) xs
 
--- ! Questão 29
+-- Questão 29
 union :: Eq a => [a] -> [a] -> [a]
 union [] l = l
 union l [] = l
@@ -330,20 +330,20 @@ caminho (x1,y1) (x2,y2) | x1 < x2 = Este : caminho (x1+1,y1) (x2,y2)
 hasLoop :: (Int,Int) -> [Movimento] -> Bool
 hasLoop (xi,yi) [] = False
 hasLoop (xi,yi) (h:t) = case h of
-                        Este -> auxHasLoop (xi,yi) t (xi+1,yi)
+                        Este  -> auxHasLoop (xi,yi) t (xi+1,yi)
                         Oeste -> auxHasLoop (xi,yi) t (xi-1,yi)
                         Norte -> auxHasLoop (xi,yi) t (xi,yi+1)
-                        Sul -> auxHasLoop (xi,yi) t (xi,yi-1)
+                        Sul   -> auxHasLoop (xi,yi) t (xi,yi-1)
 
 auxHasLoop :: (Int,Int) -> [Movimento] -> (Int,Int) -> Bool
 auxHasLoop (xi,yi) [] (x,y) = if xi == x && yi == y then True
                               else False
 auxHasLoop (xi,yi) (h:t) (x,y) = if xi == x && yi == y then True
                                  else case h of 
-                                    Este -> auxHasLoop (xi,yi) t (x+1,y)
+                                    Este  -> auxHasLoop (xi,yi) t (x+1,y)
                                     Oeste -> auxHasLoop (xi,yi) t (x-1,y)
                                     Norte -> auxHasLoop (xi,yi) t (x,y+1)
-                                    Sul -> auxHasLoop (xi,yi) t (x,y-1)
+                                    Sul   -> auxHasLoop (xi,yi) t (x,y-1)
 
 -- Questão 48
 type Ponto = (Float,Float)

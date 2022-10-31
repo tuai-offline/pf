@@ -1,14 +1,5 @@
--- 
--- group [] = []
--- group (x:y:xs) = if x == y then [x] ++ group (y:xs)
---                  else [x] : group (y:xs)
--- 
--- a : [a] : [b] : c : c : [c]
+type Ponto = (Float,Float)
+data Retangulo = Rect Ponto Ponto
 
-inits :: [a] -> [[a]]
-inits [] = [[]]
-inits (h:t) = inits (aux(h:t)) ++ [(h:t)]
-
-aux :: [a] -> [a]
-aux [x] = []
-aux (h:t) = h : aux t
+areaTotal :: [Retangulo] -> Float
+areaTotal (Rect ())
