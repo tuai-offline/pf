@@ -118,12 +118,15 @@ powerEnumFrom n 0 = []
 powerEnumFrom n m = powerEnumFrom n (m-1) ++ [n^(m-1)]
 
 -- TODO Questão 21 - Pedir ajuda 
-{-isPrime :: Int -> Bool
+isPrime :: Int -> Bool
 isPrime 1 = False
-isPrime
+isPrime x = if numeroDeDivisores x 2 == 0 then True
+            else False
 
-aux ::
--} 
+numeroDeDivisores :: Int -> Int -> Int
+numeroDeDivisores x y | y >= x = 0
+                      | mod x y == 0 = 1
+                      | otherwise = numeroDeDivisores x (y+1) 
 
 -- Questão 22
 isPrefixOf :: Eq a => [a] -> [a] -> Bool
@@ -220,14 +223,16 @@ myUnlines [x] = x
 myUnlines (h:t) = h ++ "\n" ++ myUnlines t
 
 -- ! Questão 34
---myPMaior :: Ord a => [a] -> Int
---myPMaior [x] = 0
---myPMaior (h:t) = auxPMaior 0 h t
---
---auxPMaior :: Ord a => Int -> a -> [a] -> Int
---auxPMaior acc _ [] = acc
---auxPMaior acc x (h:t) = if x >= h then auxPMaior (acc+1) x t
---                         else auxPMaior(acc+1) x t
+pMaior [x] = 0
+pMaior (h:t) = let n = pMaior t
+    in if pos t n >= h then n+1
+       else 0
+
+pos :: [a] -> Int -> a
+pos (h:t) 0 = h
+pos (h:t) x = pos t (x-1)
+
+-- ? or
 
 brunoPMaior :: Ord a => [a] -> Int
 brunoPMaior [x] = 0 
@@ -293,8 +298,11 @@ removeMSet x ((a,b):t) = if x == a then t
                          else (a,b) : removeMSet x t
 
 -- TODO Questão 43 - Ver let()
--- constroiMSet :: Ord a => [a] -> [(a,Int)]
--- constroiMSet 
+constroiMSet :: Ord a => [a] -> [(a,Int)]
+constroiMSet [x] = [(x,1)]
+constroiMSet (h:t) = let ((x,xs):ys) = constroiMSet t
+                   in if h == x then ((x,xs+1):ys)
+                      else (h,1) : ((x,xs):ys) 
 
 -- ! Questão 44
 myPE :: [Either a b] -> ([a],[b])
@@ -317,10 +325,10 @@ data Movimento = Norte | Sul | Este | Oeste
 
 caminho :: (Int, Int) -> (Int,Int) -> [Movimento]
 caminho (x1,y1) (x2,y2) | x1 < x2 = Este : caminho (x1+1,y1) (x2,y2)
-                       | x1 > x2 = Oeste : caminho (x1-1,y1) (x2,y2)
-                       | y1 < y2 = Norte : caminho (x1,y1+1) (x2,y2)
-                       | y1 > y2 = Sul : caminho (x1,y1-1) (x2,y2)
-                       |otherwise = []
+                        | x1 > x2 = Oeste : caminho (x1-1,y1) (x2,y2)
+                        | y1 < y2 = Norte : caminho (x1,y1+1) (x2,y2)
+                        | y1 > y2 = Sul : caminho (x1,y1-1) (x2,y2)
+                        |otherwise = []
 
 -- ! Questão 47
 -- data Movimento = Norte | Sul | Este | Oeste
